@@ -110,7 +110,7 @@ body{font-family:'Inter',sans-serif;background:transparent;color:var(--text);lin
 
 /* schedule */
 .schedule-grid{display:grid;grid-template-columns:repeat(auto-fit,150px);justify-content:center;gap:12px;margin-bottom:30px}
-.day-card{position:relative;border-radius:16px;padding:16px;text-align:center;background:var(--panel);border:1px solid var(--border);transition:.3s;overflow:hidden;box-shadow:0 2px 10px rgba(255,46,196,.05)}
+.day-card{position:relative;border-radius:16px;padding:16px;text-align:center;background:var(--panel);border:1px solid var(--border);transition:.3s;overflow:hidden;box-shadow:0 2px 10px rgba(255,46,196,.05);cursor:pointer}
 .day-card:hover{transform:translateY(-4px);border-color:var(--border-strong);box-shadow:0 12px 26px rgba(255,46,196,.12)}
 .day-card .day-name{font-family:'Poppins',sans-serif;font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);font-weight:700;margin-bottom:6px}
 .day-card .day-workout{font-family:'Poppins',sans-serif;font-weight:700;font-size:.92rem;letter-spacing:.3px;overflow-wrap:anywhere}
@@ -162,6 +162,21 @@ body{font-family:'Inter',sans-serif;background:transparent;color:var(--text);lin
 .tab-content.active{display:block;animation:rise .45s ease}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
+/* ---------- day-of-week navigation ---------- */
+.workout-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 26px;justify-content:center}
+.wtab{display:flex;align-items:center;gap:9px;padding:12px 16px;border-radius:14px;cursor:pointer;background:var(--panel-2);border:1px solid var(--border);color:var(--text-dim);font-family:'Poppins',sans-serif;font-weight:600;font-size:.86rem;letter-spacing:.4px;transition:.28s;position:relative}
+.wtab .tic{font-size:1.05rem}
+.wtab .day-tag{font-size:.66rem;opacity:.78;letter-spacing:.5px;text-transform:none}
+.wtab:hover{color:var(--magenta);border-color:var(--border-strong);transform:translateY(-2px)}
+.wtab.active{color:#fff;border-color:transparent;background:linear-gradient(135deg,var(--neon),var(--purple));box-shadow:0 0 26px rgba(255,46,196,.35)}
+.wtab .today-flag{font-style:normal;font-size:.56rem;font-weight:800;letter-spacing:1px;padding:2px 7px;border-radius:99px;background:var(--amber);color:#3a2500;text-transform:none;line-height:1;box-shadow:0 0 10px rgba(255,176,46,.5);flex-shrink:0}
+.wtab.active .today-flag{background:#fff;color:#5a1a3a}
+.day-banner{display:flex;align-items:center;gap:14px;border-radius:16px;padding:16px 20px;margin:0 0 22px;border:1px solid rgba(255,46,196,.4);background:linear-gradient(135deg,rgba(255,46,196,.10),rgba(180,85,255,.06));backdrop-filter:blur(8px)}
+.day-banner .db-emoji{font-size:1.7rem;line-height:1;filter:drop-shadow(0 0 10px rgba(255,46,196,.5))}
+.day-banner strong{display:block;font-family:'Poppins',sans-serif;font-size:1.05rem;letter-spacing:.5px;color:var(--magenta);line-height:1.2}
+.day-banner .db-work{font-size:.86rem;color:var(--text);font-weight:600;margin-top:2px}
+.day-banner .db-cardio{font-size:.78rem;color:var(--text-dim);margin-top:2px}
+
 /* workout title */
 .workout-title{display:flex;align-items:center;gap:16px;margin-bottom:26px}
 .workout-title .icon{width:56px;height:56px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;background:var(--panel-2);border:1px solid var(--border-strong);box-shadow:0 0 26px rgba(255,46,196,.2)}
@@ -199,6 +214,24 @@ body{font-family:'Inter',sans-serif;background:transparent;color:var(--text);lin
 .alt-card .alt-name{font-size:.88rem;font-weight:600;color:var(--purple);margin-top:3px}
 .alt-card .alt-desc{font-size:.74rem;color:var(--text-dim);margin-top:2px}
 .alt-card .yt-link{font-size:.7rem;padding:5px 11px;margin-top:6px}
+
+/* ---------- marcar exercício como DONE ---------- */
+.exercise-done-overlay{position:absolute;inset:0;z-index:6;display:none;place-items:center;pointer-events:none}
+.exercise.done .exercise-done-overlay{display:grid}
+.exercise-done-overlay .ck{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;
+  font-size:2.5rem;font-weight:800;line-height:1;color:#fff;
+  background:var(--neon);box-shadow:0 0 0 6px rgba(255,46,196,.22),0 0 46px rgba(255,46,196,.6)}
+.exercise.done .exercise-header,
+.exercise.done .exercise-body{opacity:.3;filter:saturate(.4)}
+.exercise.done:hover{transform:none;box-shadow:none;border-color:var(--border)}
+.exercise-done-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;width:100%;margin-top:6px;
+  padding:14px 18px;border-radius:12px;border:1px solid rgba(255,46,196,.5);
+  background:rgba(255,46,196,.1);color:var(--magenta);font-family:'Poppins',sans-serif;font-weight:700;
+  font-size:1rem;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:.25s}
+.exercise-done-btn:hover{background:rgba(255,46,196,.2);box-shadow:0 0 22px rgba(255,46,196,.3);transform:translateY(-1px)}
+.exercise-done-btn:active{transform:scale(.98)}
+.exercise-done-btn.undo{border-color:rgba(255,176,46,.55);background:rgba(255,176,46,.12);color:var(--amber)}
+.exercise-done-btn.undo:hover{background:rgba(255,176,46,.22);box-shadow:0 0 22px rgba(255,176,46,.3)}
 
 /* guidelines */
 .guidelines-grid{display:grid;grid-template-columns:repeat(auto-fit,260px);justify-content:center;gap:14px;margin-bottom:30px}
@@ -242,12 +275,15 @@ body{font-family:'Inter',sans-serif;background:transparent;color:var(--text);lin
   .alternatives{grid-template-columns:1fr}
   .exercise-body-inner{padding:2px 14px 16px 16px}
   .nav-inner{flex-wrap:wrap;align-items:center;padding:10px 12px 10px 56px;gap:8px}
+  .brand{font-size:.95rem;flex:1 1 auto;justify-content:center}
   .theme-toggle{margin-left:auto;width:36px;height:36px;font-size:1rem}
-  .nav-tabs{order:2;flex:1 1 100%;width:100%;gap:4px;overflow-x:visible}
-  .nav-tabs button{flex:1;min-width:0;padding:8px 4px;font-size:.78rem}
+  .nav-tabs{order:2;flex:1 1 100%;width:100%;gap:4px;overflow-x:visible;flex-wrap:wrap;justify-content:center}
+  .nav-tabs button{flex:1 1 25%;min-width:0;padding:8px 2px;font-size:.72rem}
   .nav-tabs button.active{box-shadow:0 0 10px rgba(255,46,196,.28)}
   .tabs{flex-wrap:wrap;justify-content:center;overflow-x:visible;-webkit-overflow-scrolling:auto;scroll-snap-type:none}
   .tab-btn{flex:1 1 45%;min-width:0;justify-content:center;text-align:center;white-space:normal;overflow-x:visible;scroll-snap-align:none}
+  .wtab{flex:1 1 45%;min-width:0;justify-content:center;text-align:center}
+  .day-banner{flex-direction:column;align-items:flex-start;gap:10px}
   .info-card{min-width:0}
   .guidelines-grid{grid-template-columns:1fr}
   .volume-wrap{overflow-x:visible}
@@ -270,7 +306,7 @@ body{font-family:'Inter',sans-serif;background:transparent;color:var(--text);lin
 /* print */
 @media print{
   body{background:#fff;color:#000}
-  .nav,.bg-layer,#particles,.cursor-glow,.scroll-progress,.tabs,.hamburger,.menu-backdrop,.sidebar,.to-top,.skip-link{display:none}
+  .nav,.bg-layer,#particles,.cursor-glow,.scroll-progress,.tabs,.workout-tabs,.day-banner,.hamburger,.menu-backdrop,.sidebar,.to-top,.skip-link{display:none}
   .tab-content{display:block!important}
   .exercise-body{max-height:none!important}
   .header h1{-webkit-text-fill-color:#e91e8c}
@@ -397,10 +433,13 @@ html{scroll-behavior:smooth}
   <div class="nav-inner">
     <div class="brand"><div class="bolt">💗</div><span class="grad">FitMary</span></div>
     <div class="nav-tabs" id="navTabs">
-      <button class="active" data-tab="tab-A">🦵 A</button>
-      <button data-tab="tab-B">💪 B</button>
-      <button data-tab="tab-C">🔙 C</button>
-      <button data-tab="tab-D">🏋️ D</button>
+      <button class="active" data-day="seg">🦵 Seg</button>
+      <button data-day="ter">🧘 Ter</button>
+      <button data-day="qua">💪 Qua</button>
+      <button data-day="qui">🧘 Qui</button>
+      <button data-day="sex">🔙 Sex</button>
+      <button data-day="sab">🧘 Sáb</button>
+      <button data-day="dom">🏋️ Dom</button>
     </div>
     <button class="theme-toggle" id="themeToggle" aria-label="Ativar tema escuro" title="Alternar tema">🌙</button>
   </div>
@@ -464,13 +503,13 @@ html{scroll-behavior:smooth}
 
 <div class="section-title" id="semana"><span class="dot"></span>Distribuição Semanal (Rotação ABCD)</div>
 <div class="schedule-grid">
-<div class="day-card"><div class="day-name">Seg</div><div class="day-workout">A — Pernas</div><div class="day-cardio">10 min mobilidade</div></div>
-<div class="day-card rest"><div class="day-name">Ter</div><div class="day-workout">Descanso</div><div class="day-cardio">Caminhada 15min (opcional)</div></div>
-<div class="day-card"><div class="day-name">Qua</div><div class="day-workout">B — Peito + Tríceps</div><div class="day-cardio">10 min mobilidade</div></div>
-<div class="day-card rest"><div class="day-name">Qui</div><div class="day-workout">Descanso</div><div class="day-cardio">Caminhada 15min (opcional)</div></div>
-<div class="day-card"><div class="day-name">Sex</div><div class="day-workout">C — Costas + Bíceps</div><div class="day-cardio">10 min mobilidade</div></div>
-<div class="day-card rest"><div class="day-name">Sáb</div><div class="day-workout">Descanso</div><div class="day-cardio">Não treina</div></div>
-<div class="day-card"><div class="day-name">Dom</div><div class="day-workout">D — Ombros + Posterior</div><div class="day-cardio">10 min mobilidade</div></div>
+<div class="day-card" data-day="seg"><div class="day-name">Seg</div><div class="day-workout">A — Pernas</div><div class="day-cardio">10 min mobilidade</div></div>
+<div class="day-card rest" data-day="ter"><div class="day-name">Ter</div><div class="day-workout">Descanso</div><div class="day-cardio">Caminhada 15min (opcional)</div></div>
+<div class="day-card" data-day="qua"><div class="day-name">Qua</div><div class="day-workout">B — Peito + Tríceps</div><div class="day-cardio">10 min mobilidade</div></div>
+<div class="day-card rest" data-day="qui"><div class="day-name">Qui</div><div class="day-workout">Descanso</div><div class="day-cardio">Caminhada 15min (opcional)</div></div>
+<div class="day-card" data-day="sex"><div class="day-name">Sex</div><div class="day-workout">C — Costas + Bíceps</div><div class="day-cardio">10 min mobilidade</div></div>
+<div class="day-card rest" data-day="sab"><div class="day-name">Sáb</div><div class="day-workout">Descanso</div><div class="day-cardio">Não treina</div></div>
+<div class="day-card" data-day="dom"><div class="day-name">Dom</div><div class="day-workout">D — Ombros + Posterior</div><div class="day-cardio">10 min mobilidade</div></div>
 </div>
 
 <div class="section-title" id="volume"><span class="dot"></span>Volume Semanal</div>
@@ -484,11 +523,22 @@ html{scroll-behavior:smooth}
 </tbody>
 </table>
 
-<div class="tabs" id="treinos">
-<button class="tab-btn active" data-tab="tab-A"><span>🦵 A — Pernas</span></button>
-<button class="tab-btn" data-tab="tab-B"><span>💪 B — Peito + Tríceps</span></button>
-<button class="tab-btn" data-tab="tab-C"><span>🔙 C — Costas + Bíceps</span></button>
-<button class="tab-btn" data-tab="tab-D"><span>🏋️ D — Ombros + Posterior</span></button>
+<div class="day-banner" id="dayBanner">
+  <span class="db-emoji">📅</span>
+  <div>
+    <strong id="dbDay">Segunda-feira</strong>
+    <div class="db-work" id="dbWork">Treino A — Pernas</div>
+    <div class="db-cardio" id="dbCardio">🏃 10 min mobilidade</div>
+  </div>
+</div>
+<div class="workout-tabs" id="treinos">
+<button class="wtab active" data-day="seg"><span class="tic">🦵</span> Seg <span class="day-tag">Pernas</span></button>
+<button class="wtab" data-day="ter"><span class="tic">🧘</span> Ter <span class="day-tag">Descanso</span></button>
+<button class="wtab" data-day="qua"><span class="tic">💪</span> Qua <span class="day-tag">Peito + Tríceps</span></button>
+<button class="wtab" data-day="qui"><span class="tic">🧘</span> Qui <span class="day-tag">Descanso</span></button>
+<button class="wtab" data-day="sex"><span class="tic">🔙</span> Sex <span class="day-tag">Costas + Bíceps</span></button>
+<button class="wtab" data-day="sab"><span class="tic">🧘</span> Sáb <span class="day-tag">Descanso</span></button>
+<button class="wtab" data-day="dom"><span class="tic">🏋️</span> Dom <span class="day-tag">Ombros + Posterior</span></button>
 </div>
 
 <div id="tab-A" class="tab-content active">
@@ -1027,6 +1077,32 @@ html{scroll-behavior:smooth}
   </div>
 </div>
 
+<div id="tab-rest" class="tab-content">
+  <div class="workout-title">
+    <div class="icon icon-purple">🧘</div>
+    <div><h2>Descanso</h2><div class="meta">Dia de recuperação · caminhada leve opcional</div></div>
+  </div>
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-num">1</div>
+      <div class="exercise-info">
+        <h3>Caminhada Leve (opcional)</h3>
+        <div class="tags">
+          <span class="tag tag-sets">📊 1 sessão</span>
+          <span class="tag tag-reps">15 min</span>
+          <span class="tag tag-rest">⏱ leve</span>
+          <span class="tag tag-load">🏋️ sem esforço</span>
+        </div>
+      </div>
+    </div>
+    <div class="exercise-body"><div class="exercise-body-inner">
+      <div class="exercise-detail"><h4>🎯 Objetivo</h4><p>Recuperação ativa sem sobrecarregar as articulações (coluna, joelhos, ombros).</p></div>
+      <div class="exercise-detail"><h4>📋 Execução</h4><p>Ritmo leve, que permita conversar. Pode fazer mobilidade suave no lugar.</p></div>
+      <div class="exercise-detail"><h4>💡 Dicas da personal</h4><p>Se estiver com dor, prefira descanso total. Escute o corpo.</p></div>
+    </div></div>
+  </div>
+</div>
+
 <div class="section-title" id="mobilidade"><span class="dot"></span>Mobilidade (10 min no fim de cada treino)</div>
 <div class="guidelines-grid">
 <div class="guideline-card"><div class="gl-icon">🌀</div><h4>Pêndulo de ombro</h4><p>Braço relaxado balançando em círculos suaves. <strong>30s cada lado</strong>.</p></div>
@@ -1261,29 +1337,86 @@ html{scroll-behavior:smooth}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
-  // ---- tab switching (ARIA tabs) ----
-  function activate(tabId) {
+  // ---- day-of-week navigation ----
+  var DAY_MAP = {
+    seg: { label: 'Segunda-feira', short: 'Seg', work: 'Treino A — Pernas', emoji: '🦵', tab: 'tab-A', cardio: '10 min mobilidade', rest: false },
+    ter: { label: 'Terça-feira', short: 'Ter', work: 'Descanso', emoji: '🧘', tab: 'tab-rest', cardio: 'Caminhada 15min (opcional)', rest: true },
+    qua: { label: 'Quarta-feira', short: 'Qua', work: 'Treino B — Peito + Tríceps', emoji: '💪', tab: 'tab-B', cardio: '10 min mobilidade', rest: false },
+    qui: { label: 'Quinta-feira', short: 'Qui', work: 'Descanso', emoji: '🧘', tab: 'tab-rest', cardio: 'Caminhada 15min (opcional)', rest: true },
+    sex: { label: 'Sexta-feira', short: 'Sex', work: 'Treino C — Costas + Bíceps', emoji: '🔙', tab: 'tab-C', cardio: '10 min mobilidade', rest: false },
+    sab: { label: 'Sábado', short: 'Sáb', work: 'Descanso', emoji: '🧘', tab: 'tab-rest', cardio: 'Não treina', rest: true },
+    dom: { label: 'Domingo', short: 'Dom', work: 'Treino D — Ombros + Posterior', emoji: '🏋️', tab: 'tab-D', cardio: '10 min mobilidade', rest: false }
+  };
+  var currentDayId = null;
+
+  function getTodayDayId() {
+    return ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab'][new Date().getDay()];
+  }
+
+  function resetAllDone() {
+    document.querySelectorAll('.exercise').forEach(function (ex) {
+      ex.classList.remove('done');
+      ex.classList.remove('open');
+      var header = ex.querySelector('.exercise-header');
+      if (header) header.setAttribute('aria-expanded', 'false');
+      var btn = ex.querySelector('.exercise-done-btn');
+      if (btn) {
+        btn.classList.remove('undo');
+        btn.innerHTML = '✓ Concluir exercício';
+        btn.setAttribute('aria-label', 'Marcar este exercício como concluído');
+      }
+    });
+  }
+
+  function updateDayBanner(dayId) {
+    var day = DAY_MAP[dayId] || DAY_MAP.seg;
+    var dDay = document.getElementById('dbDay');
+    var dWork = document.getElementById('dbWork');
+    var dCardio = document.getElementById('dbCardio');
+    if (dDay) dDay.textContent = day.emoji + ' ' + day.label;
+    if (dWork) dWork.textContent = day.work;
+    if (dCardio) dCardio.textContent = (day.rest ? '🧘 ' : '🏃 ') + day.cardio;
+    var todayId = getTodayDayId();
+    document.querySelectorAll('[data-day]').forEach(function (b) {
+      var old = b.querySelector('.today-flag');
+      if (old) old.remove();
+      if (b.getAttribute('data-day') === todayId) {
+        var flag = document.createElement('em');
+        flag.className = 'today-flag';
+        flag.textContent = 'HOJE';
+        b.appendChild(flag);
+      }
+    });
+  }
+
+  function activateDay(dayId) {
+    if (dayId !== currentDayId) resetAllDone();
+    currentDayId = dayId;
+    var day = DAY_MAP[dayId] || DAY_MAP.seg;
     document.querySelectorAll('.tab-content').forEach(function (t) { t.classList.remove('active'); });
-    document.querySelectorAll('.tab-btn, .nav-tabs button').forEach(function (b) {
+    var target = document.getElementById(day.tab);
+    if (target) target.classList.add('active');
+    document.querySelectorAll('[data-day]').forEach(function (b) {
       b.classList.remove('active');
       b.setAttribute('aria-selected', 'false');
     });
-    var target = document.getElementById(tabId);
-    if (target) target.classList.add('active');
-    document.querySelectorAll('[data-tab="' + tabId + '"]').forEach(function (b) {
+    document.querySelectorAll('[data-day="' + dayId + '"]').forEach(function (b) {
       b.classList.add('active');
       b.setAttribute('aria-selected', 'true');
     });
+    updateDayBanner(dayId);
   }
-  document.querySelectorAll('.tabs, .nav-tabs').forEach(function (list) { list.setAttribute('role', 'tablist'); });
+
+  // ARIA + listeners nos botões de dia (navbar e abas de treino)
+  document.querySelectorAll('.workout-tabs, .nav-tabs').forEach(function (list) { list.setAttribute('role', 'tablist'); });
   document.querySelectorAll('.tab-content').forEach(function (p) { p.setAttribute('role', 'tabpanel'); });
-  document.querySelectorAll('.tab-btn, .nav-tabs button').forEach(function (btn) {
+  document.querySelectorAll('.wtab[data-day], .nav-tabs button[data-day]').forEach(function (btn) {
     btn.setAttribute('role', 'tab');
-    btn.setAttribute('aria-controls', btn.getAttribute('data-tab'));
+    btn.setAttribute('aria-controls', (DAY_MAP[btn.getAttribute('data-day')] || DAY_MAP.seg).tab);
     btn.setAttribute('aria-selected', btn.classList.contains('active') ? 'true' : 'false');
     btn.addEventListener('click', function (e) {
       e.preventDefault();
-      activate(btn.getAttribute('data-tab'));
+      activateDay(btn.getAttribute('data-day'));
     });
   });
   document.querySelectorAll('[role="tablist"]').forEach(function (list) {
@@ -1299,6 +1432,24 @@ document.addEventListener('DOMContentLoaded', function () {
       if (next) { e.preventDefault(); next.focus(); next.click(); }
     });
   });
+
+  // dias do calendário clicáveis (pulam para o treino do dia)
+  document.querySelectorAll('.day-card[data-day]').forEach(function (card) {
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    function go() {
+      activateDay(card.getAttribute('data-day'));
+      var treinos = document.getElementById('treinos');
+      if (treinos) treinos.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    card.addEventListener('click', go);
+    card.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); go(); }
+    });
+  });
+
+  // auto-abre o treino do dia de hoje
+  activateDay(getTodayDayId());
 
   // ---- exercise accordion ----
   document.querySelectorAll('.exercise').forEach(function (ex) {
@@ -1319,6 +1470,34 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       });
     }
+  });
+
+  // ---- marcar exercício como DONE ----
+  document.querySelectorAll('.exercise').forEach(function (ex) {
+    var overlay = document.createElement('div');
+    overlay.className = 'exercise-done-overlay';
+    overlay.innerHTML = '<div class="ck">✓</div>';
+    ex.appendChild(overlay);
+
+    var inner = ex.querySelector('.exercise-body-inner');
+    if (!inner) return;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'exercise-done-btn';
+    btn.innerHTML = '✓ Concluir exercício';
+    btn.setAttribute('aria-label', 'Marcar este exercício como concluído');
+    btn.addEventListener('click', function () {
+      var isDone = ex.classList.toggle('done');
+      btn.classList.toggle('undo', isDone);
+      btn.innerHTML = isDone ? '↺ Desmarcar exercício' : '✓ Concluir exercício';
+      btn.setAttribute('aria-label', isDone ? 'Desmarcar este exercício' : 'Marcar este exercício como concluído');
+      if (isDone) {
+        ex.classList.remove('open');
+        var header = ex.querySelector('.exercise-header');
+        if (header) header.setAttribute('aria-expanded', 'false');
+      }
+    });
+    inner.appendChild(btn);
   });
 
   // ---- wrap volume table for mobile horizontal scroll ----
