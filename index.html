@@ -257,6 +257,9 @@ body{font-family:'Inter',sans-serif;background:transparent;color:var(--text);lin
 .vtab{padding:6px 13px;border-radius:99px;border:none;background:transparent;color:var(--text);opacity:.6;cursor:pointer;font-weight:700;font-size:.8rem;letter-spacing:.4px;white-space:nowrap;transition:.25s;font-family:inherit}
 .vtab:hover{opacity:1}
 .vtab.active{opacity:1;color:#fff;background:linear-gradient(135deg,var(--neon),var(--purple));box-shadow:0 0 14px var(--neon)}
+.today-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:99px;border:1px solid var(--border-strong);background:var(--panel-2);font-family:'Poppins',sans-serif;font-weight:600;font-size:.82rem;letter-spacing:.4px;white-space:nowrap;flex-shrink:0}
+.today-badge .tb-date{opacity:.7}
+.today-badge .tb-phase{color:var(--magenta)}
 .dash{padding-top:36px;padding-bottom:70px}
 .dash-head{text-align:center;margin-bottom:36px}
 .dash-kicker{font-size:.78rem;letter-spacing:3px;text-transform:uppercase;opacity:.7}
@@ -362,7 +365,8 @@ body{font-family:'Inter',sans-serif;background:transparent;color:var(--text);lin
   .checkin-btn{margin-left:0;width:100%;justify-content:center}
   .nav-inner{flex-wrap:wrap;align-items:center;padding:10px 12px 10px 56px;gap:8px}
   .brand{font-size:.95rem;flex:1 1 auto;justify-content:center}
-  .theme-toggle{margin-left:auto;width:40px;height:40px;font-size:1.05rem}
+  .theme-toggle{width:40px;height:40px;font-size:1.05rem}
+  .today-badge{margin-left:auto;margin-right:auto}
   .view-switcher{order:2;flex:1 1 100%;justify-content:center}
   .vtab{flex:1;text-align:center;padding:10px 6px;font-size:.85rem}
   .nav-tabs{order:3;flex:1 1 100%;width:100%;gap:4px;overflow-x:visible;flex-wrap:wrap;justify-content:center}
@@ -520,16 +524,7 @@ html{scroll-behavior:smooth}
 
 <nav class="nav">
   <div class="nav-inner">
-    <div class="brand"><div class="bolt">💗</div><span class="grad">FitMary</span></div>
-    <div class="nav-tabs" id="navTabs">
-      <button class="active" data-day="seg">🦵 Seg</button>
-      <button data-day="ter">🧘 Ter</button>
-      <button data-day="qua">💪 Qua</button>
-      <button data-day="qui">🧘 Qui</button>
-      <button data-day="sex">🔙 Sex</button>
-      <button data-day="sab">🧘 Sáb</button>
-      <button data-day="dom">🏋️ Dom</button>
-    </div>
+    <div class="today-badge"><span class="tb-date">📅</span><span class="tb-phase" id="navTodayTxt">Hoje</span></div>
     <div class="view-switcher" role="tablist" aria-label="Alternar visão">
       <button class="vtab active" data-view="treino" aria-selected="true">📋 Treino</button>
       <button class="vtab" data-view="dashboard" aria-selected="false">📊 Dashboard</button>
@@ -2139,7 +2134,7 @@ document.addEventListener('DOMContentLoaded', function () {
       kpi('🔥',seq,'Sequência (dias)')+
       kpi('💪',totalEx,'Exercícios realizados')+
       kpi('🎯',media,'Média exerc./treino');
-    $('dashSub').textContent='De '+inicio+' até hoje · '+decorridos+' dias acompanhados';
+    $('dashSub').textContent='De '+fmtBR(inicio)+' até hoje · '+decorridos+' dias acompanhados';
     var porDia={};
     DIAS_CHEIOS.forEach(function(d){ porDia[d]=0; });
     concl.forEach(function(r){ if(porDia[r.dia_semana]!==undefined) porDia[r.dia_semana]++; });
@@ -2171,6 +2166,7 @@ document.addEventListener('DOMContentLoaded', function () {
     return '<div class="donut" style="background:conic-gradient('+stops.join(',')+')"></div><div class="donut-legend">'+legend+'</div>';
   }
   function rotMes(m){ var p=m.split('-'); return (MESES[parseInt(p[1],10)-1]||p[1])+'/'+p[0].slice(2); }
+  function fmtBR(s){ var p=s.split('-'); return p[2]+'-'+p[1]+'-'+p[0]; }
   function calendario(setDone){
     var now=new Date(), y=now.getFullYear(), mo=now.getMonth();
     var dowInicio=new Date(y,mo,1).getDay();
@@ -2205,6 +2201,16 @@ document.addEventListener('DOMContentLoaded', function () {
     return rows.length?rows.join(''):'<div class="dash-empty">Sem dados.</div>';
   }
   function curto(s){ var p=parts(s); return p[2]+'/'+pad2(p[1]+1); }
+})();
+</script>
+
+<script>
+(function(){
+  var el = document.getElementById('navTodayTxt');
+  if (el) {
+    var dias = ['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
+    el.textContent = 'Hoje · ' + dias[new Date().getDay()];
+  }
 })();
 </script>
 </body>
